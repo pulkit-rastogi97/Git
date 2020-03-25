@@ -1,0 +1,314 @@
+
+#This is solution to the Local Operations Case Study on Git. Git Repository name is "AssignmentOne"
+
+
+#Create a new local git repository on to your local machine
+#==========================================================
+pulkit_rastogi97@PULKIT MINGW64 /h/AssignmentOne
+$ git init
+Initialized empty Git repository in H:/AssignmentOne/.git/
+
+
+#configure for user.name attribute [locally] can use [-g] to make the changes global to all git repositories
+#==========================================================
+pulkit_rastogi97@PULKIT MINGW64 /h/AssignmentOne (master)
+$ git config user.name "Pulkit"
+
+
+#configure for user.email attribute [locally] can use [-g] to make the changes global to all git repositories
+#==========================================================
+pulkit_rastogi97@PULKIT MINGW64 /h/AssignmentOne (master)
+$ git config user.email "pulkit_rastogi97@gmail.com"
+
+
+#Files created and checking the status of repository
+#===================================================
+pulkit_rastogi97@PULKIT MINGW64 /h/AssignmentOne (master)
+$ git status
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        File1.txt
+        FileToDelete.txt
+        IgnoreFile.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+
+#Add the files to the staging area [.] to add all the new files and old files which has some untracked changes.
+#To add particular files [git add "File1" "File 2"]
+#==============================================================================================================
+pulkit_rastogi97@PULKIT MINGW64 /h/AssignmentOne (master)
+$ git add .
+
+
+#First ever commit in repository
+#================================
+pulkit_rastogi97@PULKIT MINGW64 /h/AssignmentOne (master)
+$ git commit -m "This is First Commit, Tracking File1 and FileToDelete"
+[master (root-commit) 684139e] This is First Commit, Tracking File1 and FileToDelete
+ 3 files changed, 1 insertion(+)
+ create mode 100644 .gitignore
+ create mode 100644 File1.txt
+ create mode 100644 FileToDelete.txt
+
+
+#After commit, the status is clean
+#=================================
+pulkit_rastogi97@PULKIT MINGW64 /h/AssignmentOne (master)
+$ git status
+On branch master
+nothing to commit, working tree clean
+
+
+#Commit the Change1 in File1 as File1 is already tracked by git. The changes can be commited by [-am] to add and commit directly.
+#================================================================================================================================
+pulkit_rastogi97@PULKIT MINGW64 /h/AssignmentOne (master)
+$ git commit -am "Change in File1"
+[master 2aabf86] Change in File1
+ 1 file changed, 1 insertion(+)
+
+
+#Commit the Change2 in File1
+#===========================
+pulkit_rastogi97@PULKIT MINGW64 /h/AssignmentOne (master)
+$ git commit -am "Change2 in File1"
+[master f76f516] Change2 in File1
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+
+#In between checking status
+#==========================
+pulkit_rastogi97@PULKIT MINGW64 /h/AssignmentOne (master)
+$ git status
+On branch master
+nothing to commit, working tree clean
+
+
+#Deleting FileToDelete file
+#==========================
+pulkit_rastogi97@PULKIT MINGW64 /h/AssignmentOne (master)
+$ git rm "FileToDelete.txt"
+rm 'FileToDelete.txt'
+
+
+#Status after deleting the file
+#==============================
+pulkit_rastogi97@PULKIT MINGW64 /h/AssignmentOne (master)
+$ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        deleted:    FileToDelete.txt
+
+
+#Commiting the delete operation to the log file
+#==============================================
+pulkit_rastogi97@PULKIT MINGW64 /h/AssignmentOne (master)
+$ git commit -m "FileToDelete is deleted"
+[master 6e2e14e] FileToDelete is deleted
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ delete mode 100644 FileToDelete.txt
+
+
+#Status check
+#============
+pulkit_rastogi97@PULKIT MINGW64 /h/AssignmentOne (master)
+$ git status
+On branch master
+nothing to commit, working tree clean
+
+
+#Checking the log of the repository
+#==================================
+pulkit_rastogi97@PULKIT MINGW64 /h/AssignmentOne (master)
+$ git log
+commit 6e2e14ee243c53a9161d03315de5b41596eb0eea (HEAD -> master)
+Author: Pulkit <pulkit_rastogi@persistent.com>
+Date:   Wed Feb 12 16:24:14 2020 +0530
+
+    FileToDelete is deleted
+
+commit f76f5169230fe6bf83009b370b8df1102235f5fe
+Author: Pulkit <pulkit_rastogi@persistent.com>
+Date:   Wed Feb 12 16:22:22 2020 +0530
+
+    Change2 in File1
+
+commit 2aabf86611a32c3b40e76b0b0cef69682c978349
+Author: Pulkit <pulkit_rastogi@persistent.com>
+Date:   Wed Feb 12 16:21:11 2020 +0530
+
+    Change in File1
+
+commit 684139ed2dcc74d36447a0c143d8a9c62e51985a
+Author: Pulkit <pulkit_rastogi@persistent.com>
+Date:   Wed Feb 12 16:18:07 2020 +0530
+
+    This is First Commit, Tracking File1 and FileToDelete
+
+
+
+#Only last 3 commits in one line summary
+#=======================================
+pulkit_rastogi97@PULKIT MINGW64 /h/AssignmentOne (master)
+$ git log -3 --oneline
+6e2e14e (HEAD -> master) FileToDelete is deleted
+f76f516 Change2 in File1
+2aabf86 Change in File1
+
+
+#Log from a date to a date
+#=========================
+pulkit_rastogi97@PULKIT MINGW64 /h/AssignmentOne (master)
+$ git log --since="01-01-2020" --until="13-02-2020"
+commit 6e2e14ee243c53a9161d03315de5b41596eb0eea (HEAD -> master)
+Author: Pulkit <pulkit_rastogi@persistent.com>
+Date:   Wed Feb 12 16:24:14 2020 +0530
+
+    FileToDelete is deleted
+
+commit f76f5169230fe6bf83009b370b8df1102235f5fe
+Author: Pulkit <pulkit_rastogi@persistent.com>
+Date:   Wed Feb 12 16:22:22 2020 +0530
+
+    Change2 in File1
+
+commit 2aabf86611a32c3b40e76b0b0cef69682c978349
+Author: Pulkit <pulkit_rastogi@persistent.com>
+Date:   Wed Feb 12 16:21:11 2020 +0530
+
+    Change in File1
+
+commit 684139ed2dcc74d36447a0c143d8a9c62e51985a
+Author: Pulkit <pulkit_rastogi@persistent.com>
+Date:   Wed Feb 12 16:18:07 2020 +0530
+
+    This is First Commit, Tracking File1 and FileToDelete
+
+
+
+#Log from a date to a date in one line
+#=====================================
+pulkit_rastogi97@PULKIT MINGW64 /h/AssignmentOne (master)
+$ git log --since="01-01-2020" --until="13-02-2020" --oneline
+6e2e14e (HEAD -> master) FileToDelete is deleted
+f76f516 Change2 in File1
+2aabf86 Change in File1
+684139e This is First Commit, Tracking File1 and FileToDelete
+
+
+#Commit logs having "File1" as a string in the log message
+#=========================================================
+pulkit_rastogi97@PULKIT MINGW64 /h/AssignmentOne (master)
+$ git log --grep "File1"
+commit f76f5169230fe6bf83009b370b8df1102235f5fe
+Author: Pulkit <pulkit_rastogi@persistent.com>
+Date:   Wed Feb 12 16:22:22 2020 +0530
+
+    Change2 in File1
+
+commit 2aabf86611a32c3b40e76b0b0cef69682c978349
+Author: Pulkit <pulkit_rastogi@persistent.com>
+Date:   Wed Feb 12 16:21:11 2020 +0530
+
+    Change in File1
+
+commit 684139ed2dcc74d36447a0c143d8a9c62e51985a
+Author: Pulkit <pulkit_rastogi@persistent.com>
+Date:   Wed Feb 12 16:18:07 2020 +0530
+
+    This is First Commit, Tracking File1 and FileToDelete
+
+
+#Above command in one line
+#=========================
+pulkit_rastogi97@PULKIT MINGW64 /h/AssignmentOne (master)
+$ git log --grep "File1" --oneline
+f76f516 Change2 in File1
+2aabf86 Change in File1
+684139e This is First Commit, Tracking File1 and FileToDelete
+
+
+#Complete log in one line message for each log
+#=============================================
+pulkit_rastogi97@PULKIT MINGW64 /h/AssignmentOne (master)
+$ git log --oneline
+6e2e14e (HEAD -> master) FileToDelete is deleted
+f76f516 Change2 in File1
+2aabf86 Change in File1
+684139e This is First Commit, Tracking File1 and FileToDelete
+
+
+#Permanently undo a log and from commit snapshot and rollback the repository status to the previous commit snapshot making the working tree clean [--hard]
+#=========================================================================================================================================================
+pulkit_rastogi97@PULKIT MINGW64 /h/AssignmentOne (master)
+$ git reset --hard f76f516
+HEAD is now at f76f516 Change2 in File1
+
+
+#Checking the status
+#===================
+pulkit_rastogi97@PULKIT MINGW64 /h/AssignmentOne (master)
+$ git status
+On branch master
+nothing to commit, working tree clean
+
+
+#Logs in one line
+#================
+pulkit_rastogi97@PULKIT MINGW64 /h/AssignmentOne (master)
+$ git log --oneline
+f76f516 (HEAD -> master) Change2 in File1
+2aabf86 Change in File1
+684139e This is First Commit, Tracking File1 and FileToDelete
+
+
+#Rename the File1 to FileOne
+#===========================
+pulkit_rastogi97@PULKIT MINGW64 /h/AssignmentOne (master)
+$ git mv "File1.txt" "FileOne.txt"
+
+
+#Checking the status : Every Operation is to be tracked even rename 
+#==================================================================
+pulkit_rastogi97@PULKIT MINGW64 /h/AssignmentOne (master)
+$ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        renamed:    File1.txt -> FileOne.txt
+
+
+
+#Commit the rename snapshot
+#==========================
+pulkit_rastogi97@PULKIT MINGW64 /h/AssignmentOne (master)
+$ git commit -m "File Renamed"
+[master 904d38d] File Renamed
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ rename File1.txt => FileOne.txt (100%)
+
+
+#Checking the status
+#===================
+pulkit_rastogi97@PULKIT MINGW64 /h/AssignmentOne (master)
+$ git status
+On branch master
+nothing to commit, working tree clean
+
+
+#Checking the logs in one line
+#=============================
+pulkit_rastogi97@PULKIT MINGW64 /h/AssignmentOne (master)
+$ git log --oneline
+904d38d (HEAD -> master) File Renamed
+f76f516 Change2 in File1
+2aabf86 Change in File1
+684139e This is First Commit, Tracking File1 and FileToDelete
