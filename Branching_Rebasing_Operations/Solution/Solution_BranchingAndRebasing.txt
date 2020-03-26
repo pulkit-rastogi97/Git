@@ -1,0 +1,469 @@
+
+#This is solution to the Branching & Rebasing Case Study on Git. Git Repository name is "AssignmentOne"
+
+#Create a branch ‘bug’, checkout to bug branch [-b] to create a new branch while checking out to the branch
+#==========================================================================================================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (master)
+$ git checkout -b bug
+Switched to a new branch 'bug'
+
+
+#FileOne modified in bug branch as per the case
+#============================================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (bug)
+$ git status
+On branch bug
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   FileOne.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+
+#Commited the modifications done on FileOne
+#==========================================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (bug)
+$ git commit -am "Bug Resolved – Space added between numerical and letters"
+[bug 58383de] Bug Resolved – Space added between numerical and letters
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+
+#Checking out to master branch [to merge the changes done in bug branch]
+#=======================================================================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (bug)
+$ git checkout master
+Switched to branch 'master'
+
+
+#Merging the bug branch changes to the master branch [one way merge]
+#====================================================================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (master)
+$ git merge bug
+Updating 904d38d..58383de
+Fast-forward
+ FileOne.txt | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+
+#checking the status of master branch
+#====================================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (master)
+$ git status
+On branch master
+nothing to commit, working tree clean
+
+
+#Deleting the bug branch : because it's purpose is served.
+#=========================================================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (master)
+$ git branch -d bug
+Deleted branch bug (was 58383de).
+
+
+#Recover the deleted branch 'bug' and checking out to the recovered branch
+#=========================================================================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (master)
+$ git checkout -b bug 58383de
+Switched to a new branch 'bug'
+
+
+#Checking out to master branch back
+#==================================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (bug)
+$ git checkout master
+Switched to branch 'master'
+
+
+#Rename the bug branch to bug123
+#===============================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (master)
+$ git branch -m bug bug123
+
+
+#Branch list in the current repository , * refers to current branch head is pointing to
+#======================================================================================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (master)
+$ git branch --list
+  bug123
+* master
+
+
+#Creating a new branch idea and checking out to the new branch
+#==============================================================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (master)
+$ git checkout -b idea
+Switched to a new branch 'idea'
+
+
+#Modified FileOne in idea branch
+#===============================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (idea)
+$ git status
+On branch idea
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   FileOne.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+
+#Commited the changes in idea branch
+#===================================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (idea)
+$ git commit -am "FileOne updated to test rebase"
+[idea 8e1e988] FileOne updated to test rebase
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+
+#Checkout to master branch
+#========================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (idea)
+$ git checkout master
+Switched to branch 'master'
+
+
+#Modified FileOne in master branch
+#===============================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (master)
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   FileOne.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+
+#Commited the changes in master branch
+#===================================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (master)
+$ git commit -am "FileOne in master updated to test rebase"
+[master 3f69540] FileOne in master updated to test rebase
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+
+#Status of master branch
+#=======================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (master)
+$ git status
+On branch master
+nothing to commit, working tree clean
+
+
+#==============================================================================================
+#Explaination : Now the master branch and idea branch is in the scenario mentioned in point 6.
+#==============================================================================================
+#Idea branch has one new commit on FileOne, thus pointing to different commit snapshot.
+#Master branch has one new commit on FileOne, thus pointing to different commit snapshot.
+#==============================================================================================
+
+
+#Checking out to idea branch [for rebasing]
+#==========================================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (master)
+$ git checkout idea
+Switched to branch 'idea'
+
+
+#Rebasing the master branch to idea branch
+#Conflicts occur as both master and idea branches are pointing to different commit snapshots
+#=========================================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (idea)
+$ git rebase master
+First, rewinding head to replay your work on top of it...
+Applying: FileOne updated to test rebase
+Using index info to reconstruct a base tree...
+M       FileOne.txt
+Falling back to patching base and 3-way merge...
+Auto-merging FileOne.txt
+CONFLICT (content): Merge conflict in FileOne.txt
+error: Failed to merge in the changes.
+hint: Use 'git am --show-current-patch' to see the failed patch
+Patch failed at 0001 FileOne updated to test rebase
+Resolve all conflicts manually, mark them as resolved with
+"git add/rm <conflicted_files>", then run "git rebase --continue".
+You can instead skip this commit: run "git rebase --skip".
+To abort and get back to the state before "git rebase", run "git rebase --abort".
+
+
+
+#Now we need to open the conflict creating file : FileOne.txt and modify it as we want.
+#But before that let's check the status of branch
+#======================================================================================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (idea|REBASE 1/1)
+$ git status
+rebase in progress; onto 3f69540
+You are currently rebasing branch 'idea' on '3f69540'.
+  (fix conflicts and then run "git rebase --continue")
+  (use "git rebase --skip" to skip this patch)
+  (use "git rebase --abort" to check out the original branch)
+
+Unmerged paths:
+  (use "git reset HEAD <file>..." to unstage)
+  (use "git add <file>..." to mark resolution)
+
+        both modified:   FileOne.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+
+
+#Now modify the FileOne.txt and see the status
+#Cheking the status
+#===============================================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (idea|REBASE 1/1)
+$ git status
+rebase in progress; onto 3f69540
+You are currently rebasing branch 'idea' on '3f69540'.
+  (all conflicts fixed: run "git rebase --continue")
+
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        modified:   FileOne.txt
+
+
+#Now as we have resolved the conflict as per demand, now continuing the rebase operation
+#=======================================================================================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (idea|REBASE 1/1)
+$ git rebase --continue
+Applying: FileOne updated to test rebase
+
+
+#As the rebase is done, now checking out to master branch and will merge the idea to master branch
+#=================================================================================================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (idea)
+$ git checkout master
+Switched to branch 'master'
+
+
+#Merging the idea branch to the master branch to get a linear log
+#================================================================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (master)
+$ git merge idea
+Updating 3f69540..e761670
+Fast-forward
+ FileOne.txt | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+
+#Checking the status of master branch
+#=====================================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (master)
+$ git status
+On branch master
+nothing to commit, working tree clean
+
+
+#Viewing the logs in one line
+#============================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (master)
+$ git log --oneline
+e761670 (HEAD -> master, idea) FileOne updated to test rebase
+3f69540 FileOne in master updated to test rebase
+58383de (bug123) Bug Resolved – Space added between numerical and letters
+904d38d File Renamed
+f76f516 Change2 in File1
+2aabf86 Change in File1
+684139e This is First Commit, Tracking File1 and FileToDelete
+
+
+#Tagging this version of repository as 'v1.0' with message "Stable version 1.0 released"
+#=======================================================================================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (master)
+$ git tag -a V1.0 -m "Stable version 1.0 released"
+
+
+#Checking the log with options
+#=============================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (master)
+$ git log --oneline --graph --decorate
+* e761670 (HEAD -> master, tag: V1.0, idea) FileOne updated to test rebase
+* 3f69540 FileOne in master updated to test rebase
+* 58383de (bug123) Bug Resolved – Space added between numerical and letters
+* 904d38d File Renamed
+* f76f516 Change2 in File1
+* 2aabf86 Change in File1
+* 684139e This is First Commit, Tracking File1 and FileToDelete
+
+
+#Listing the tags created
+#========================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (master)
+$ git tag
+V1.0
+
+
+#Checking the tag details
+#=========================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (master)
+$ git show V1.0
+tag V1.0
+Tagger: Pulkit <pulkit_rastogi@persistent.com>
+Date:   Thu Feb 13 15:55:18 2020 +0530
+
+Stable version 1.0 released
+
+commit e7616709bfca0a5837cda73b936de1c0f70a25ce (HEAD -> master, tag: V1.0, idea)
+Author: Pulkit <pulkit_rastogi@persistent.com>
+Date:   Thu Feb 13 15:33:04 2020 +0530
+
+    FileOne updated to test rebase
+
+diff --git a/FileOne.txt b/FileOne.txt
+index 7c5e25e..e0e7152 100644
+--- a/FileOne.txt
++++ b/FileOne.txt
+@@ -1,5 +1,13 @@
++
+ Change1 : Change in File1
+
+ Change2 : Change 2 in File1
+
+-Change3 : Change done to test rebase in master
+\ No newline at end of file
++Change3 : Change done to test rebase in master
++
++Change 1: Change in File1
++
++Change 2: Change 2 in File1
++
++Change 3 : change done to test rebase
++
+
+
+#Checking tag details with one line option
+#==========================================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (master)
+$ git show V1.0 --oneline
+tag V1.0
+
+Stable version 1.0 released
+e761670 (HEAD -> master, tag: V1.0, idea) FileOne updated to test rebase
+diff --git a/FileOne.txt b/FileOne.txt
+index 7c5e25e..e0e7152 100644
+--- a/FileOne.txt
++++ b/FileOne.txt
+@@ -1,5 +1,13 @@
++
+ Change1 : Change in File1
+
+ Change2 : Change 2 in File1
+
+-Change3 : Change done to test rebase in master
+\ No newline at end of file
++Change3 : Change done to test rebase in master
++
++Change 1: Change in File1
++
++Change 2: Change 2 in File1
++
++Change 3 : change done to test rebase
++
+
+
+#Checking out to already created branch 'bug123'
+#===============================================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (master)
+$ git checkout bug123
+Switched to branch 'bug123'
+
+
+#Opening FileOne and appending the text to it.
+#==============================================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (bug123)
+$ cat> Fileone.txt
+Change3 : i am currently working
+
+
+#Stashing the current unstaged changes of the repository and hence ensuring a clean working directory to checkout to other branches for performing some high priority task on other branches.
+#============================================================================================================================================================================================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (bug123)
+$ git stash save "applying changes in FileOne "
+warning: LF will be replaced by CRLF in FileOne.txt.
+The file will have its original line endings in your working directory
+Saved working directory and index state On bug123: applying changes in FileOne
+
+
+#Checkout to master branch
+#==========================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (bug123)
+$ git checkout master
+Switched to branch 'master'
+
+
+#Viewing all the stashs exisiting in the repository
+#===================================================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (master)
+$ git stash list
+stash@{0}: On bug123: applying changes in FileOne
+
+
+#Checkout to bug123
+#==================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (master)
+$ git checkout bug123
+Switched to branch 'bug123'
+
+
+#Retrieving the stash version of the branch
+#==========================================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (bug123)
+$ git stash apply stash@{0}
+On branch bug123
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   FileOne.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+
+#Adding the changes to staged area
+#=================================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (bug123)
+$ git add .
+
+
+#Commiting the changes as per point 11.
+#======================================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (bug123)
+$ git commit -m "Change 3 in File 1"
+[bug123 06555c1] Change 3 in File 1
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+
+#Checking the status of bug123 branch
+#====================================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (bug123)
+$ git status
+On branch bug123
+nothing to commit, working tree clean
+
+
+#Checking out to master branch
+#=============================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (bug123)
+$ git checkout master
+Switched to branch 'master'
+
+
+#Viewing the logs in one line (use can see the tagged version of repo as well
+#============================================================================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/AssignmentOne (master)
+$ git log --oneline
+e761670 (HEAD -> master, tag: V1.0, idea) FileOne updated to test rebase
+3f69540 FileOne in master updated to test rebase
+58383de Bug Resolved – Space added between numerical and letters
+904d38d File Renamed
+f76f516 Change2 in File1
+2aabf86 Change in File1
+684139e This is First Commit, Tracking File1 and FileToDelete
+
