@@ -1,0 +1,151 @@
+
+#This is solution to the Remote Operations Case Study on Git.
+
+#Creating a folder
+#=================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h
+$ mkdir TestRepo
+
+
+#Checking out to folder
+#======================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h
+$ cd TestRepo
+
+
+#Making it a git repository
+#==========================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/TestRepo
+$ git init
+Initialized empty Git repository in H:/TestRepo/.git/
+
+
+#Add remote to local repository
+#==============================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/TestRepo (master)
+$ git remote add origin https://github.com/pulkit-rastogi/TestRepo.git
+
+
+#All remote with details to which operation can be performed
+#===========================================================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/TestRepo (master)
+$ git remote -v
+origin  https://github.com/pulkit-rastogi/TestRepo.git (fetch)
+origin  https://github.com/pulkit-rastogi/TestRepo.git (push)
+
+
+#Checking the log in one line 
+#============================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/TestRepo (master)
+$ git log --oneline
+fatal: your current branch 'master' does not have any commits yet
+
+
+#Fetching the data from remote to check if both repos are pointing to same commit snapshots,if any
+#=================================================================================================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/TestRepo (master)
+$ git fetch
+remote: Enumerating objects: 3, done.
+remote: Counting objects: 100% (3/3), done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), done.
+From https://github.com/pulkit-rastogi/TestRepo
+ * [new branch]      master     -> origin/master
+
+
+#Pulling the state of remote repo to local to make the local repo state same to remote repo
+#==========================================================================================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/TestRepo (master)
+$ git pull origin master
+From https://github.com/pulkit-rastogi/TestRepo
+ * branch            master     -> FETCH_HEAD
+
+
+#Checking the log in one line (you can see one commit we done in remote repo)
+#============================================================================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/TestRepo (master)
+$ git log --oneline
+db40af6 (HEAD -> master, origin/master)   Changes in File1
+
+
+#Changes done in remote repo then we had pull it to local repo
+#=============================================================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/TestRepo (master)
+$ git pull origin master
+remote: Enumerating objects: 5, done.
+remote: Counting objects: 100% (5/5), done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), done.
+From https://github.com/pulkit-rastogi/TestRepo
+ * branch            master     -> FETCH_HEAD
+   db40af6..d77d887  master     -> origin/master
+Updating db40af6..d77d887
+Fast-forward
+ RemoteFile.txt | 2 ++
+ 1 file changed, 2 insertions(+)
+
+
+#Checking the status of local repo
+#=================================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/TestRepo (master)
+$ git status
+On branch master
+nothing to commit, working tree clean
+
+
+#Checking log for the commits
+#============================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/TestRepo (master)
+$ git log --oneline
+d77d887 (HEAD -> master, origin/master) Change2 in RemoteFile
+db40af6   Changes in File1
+
+
+#Changes done in local repo and commiting these changes
+#======================================================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/TestRepo (master)
+$ git commit -am "Change3 in RemoteFile"
+[master 8cb5eda] Change3 in RemoteFile
+ 1 file changed, 3 insertions(+)
+
+
+#Changes done in local repo and commiting these changes
+#======================================================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/TestRepo (master)
+$ git commit -am "Change4 in RemoteFile"
+[master 6d4599e] Change4 in RemoteFile
+ 1 file changed, 4 insertions(+)
+
+
+#Viewing logs (you can see the change in pointers
+#================================================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/TestRepo (master)
+$ git log --oneline
+6d4599e (HEAD -> master) Change4 in RemoteFile
+8cb5eda Change3 in RemoteFile
+d77d887 (origin/master) Change2 in RemoteFile
+db40af6   Changes in File1
+
+
+#Pushing the state of local repo to remote repo 
+#==============================================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/TestRepo (master)
+$ git push -u origin master
+Enumerating objects: 8, done.
+Counting objects: 100% (8/8), done.
+Delta compression using up to 2 threads
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (6/6), 578 bytes | 115.00 KiB/s, done.
+Total 6 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), done.
+To https://github.com/pulkit-rastogi/TestRepo.git
+   d77d887..6d4599e  master -> master
+Branch 'master' set up to track remote branch 'master' from 'origin'.
+
+
+#Checking the status of local repo
+#=================================
+pulkit_rastogi@TRNG-JAVA-ANG17 MINGW64 /h/TestRepo (master)
+$ git status
+On branch master
+nothing to commit, working tree clean
